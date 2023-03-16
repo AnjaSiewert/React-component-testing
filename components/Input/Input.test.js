@@ -10,4 +10,11 @@ test("renders a label and an input with the correct attributes", () => {
   expect(label).toHaveAttribute("for", ""); */
 });
 
-test("calls callback on every user input", async () => {});
+test("calls callback on every user input", async () => {
+  const onChange = jest.fn();
+  const user = userEvent.setup();
+  render(<Input onChange={onChange} />);
+  const changeEvent = screen.getByRole("textbox", { name: "" });
+  await user.type(changeEvent, "a");
+  expect(onChange).toHaveBeenCalledTimes(1);
+});
